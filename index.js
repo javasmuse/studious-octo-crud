@@ -5,7 +5,7 @@ const server = express();
 server.use(bodyParser.json());
 
 // cant just use this when deployed - add in env.process.PORT || 
-server.listen(env.process.PORT || 3000);
+server.listen(process.env.PORT || 3000);
 
 const employees = []; //[{fName: "Matt", lName: "Sugu", email: "matt.s@amazon.com", role: "sde", eId: "123432"}]
 
