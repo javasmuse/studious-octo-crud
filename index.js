@@ -4,11 +4,8 @@ const server = express();
 
 server.use(bodyParser.json());
 
-// can't do port 3000 while deployed 
-// server.listen(3000);
-
-// instead use: 
-server.listen(process.env.PORT || 3000);
+// cant just use this when deployed - add in env.process.PORT || 
+server.listen(env.process.PORT || 3000);
 
 const employees = []; //[{fName: "Matt", lName: "Sugu", email: "matt.s@amazon.com", role: "sde", eId: "123432"}]
 
@@ -20,7 +17,7 @@ server.post("/employees", (req, res) => {
 //route to return list of all employees
 server.get("/employees", (req, res) => {
   res.send(employees);
-});
+})
 
 //route to return employees by role
 server.get("/employees/:role", (req, res) => {
@@ -28,7 +25,7 @@ server.get("/employees/:role", (req, res) => {
   const results = employees.filter(employee => employee.role.toUpperCase() === role.toUpperCase());
 
   res.send(results);
-});
+})
 
 //route to return employees by id
 server.get("/employees/:id", (req, res) => {
@@ -36,7 +33,7 @@ server.get("/employees/:id", (req, res) => {
   const results = employees.filter(emp => emp.eId === eId);
 
   res.send(results);
-});
+})
 
 //route to change employees information by id
 server.put("/employees/:id", (req, res) => {
@@ -56,7 +53,7 @@ server.put("/employees/:id", (req, res) => {
     result[0].role = employee.role;
   }
   res.send(result[0]);
-});
+})
 
 //route to delete employees by id
 server.delete("/employees/:id", (req, res) => {
@@ -68,7 +65,7 @@ server.delete("/employees/:id", (req, res) => {
       empIdx = idx;
       return;
     }
-  });
+  })
   if (empIdx === -1) {
     return res.status(404).send("Employee not found");
   }
@@ -76,4 +73,4 @@ server.delete("/employees/:id", (req, res) => {
   res.send({
     success: "Success"
   });
-});
+})
